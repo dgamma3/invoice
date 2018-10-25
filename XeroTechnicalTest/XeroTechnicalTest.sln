@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XeroTechnicalTest", "XeroTechnicalTest.csproj", "{E42D436E-3954-4546-AF56-4B1A4106DD21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{42706752-2E97-434C-9C30-4A3C9D894972}"
+	ProjectSection(SolutionItems) = preProject
+		readme.txt = readme.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XeroTechnicalTest.UnitTest", "..\UnitTestProject1\XeroTechnicalTest.UnitTest.csproj", "{8594CF09-5F46-4767-B666-3CBE4B2477E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E42D436E-3954-4546-AF56-4B1A4106DD21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42D436E-3954-4546-AF56-4B1A4106DD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42D436E-3954-4546-AF56-4B1A4106DD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42D436E-3954-4546-AF56-4B1A4106DD21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8594CF09-5F46-4767-B666-3CBE4B2477E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8594CF09-5F46-4767-B666-3CBE4B2477E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8594CF09-5F46-4767-B666-3CBE4B2477E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8594CF09-5F46-4767-B666-3CBE4B2477E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFA230C6-26F2-40F6-80DB-2ECBD4BD6D2B}
+	EndGlobalSection
+EndGlobal
