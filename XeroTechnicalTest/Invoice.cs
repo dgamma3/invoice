@@ -28,37 +28,19 @@ namespace XeroTechnicalTest
 
         public Result RemoveInvoiceLine(int invoiceLineId)
         {
-   
             var result = ValidInput2(invoiceLineId);
                       
             if (result.Success)
             {
-                foreach (var lineItem in LineItems)
-                {
-                    if(lineItem.InvoiceLineId > (invoiceLineId))
-                    {
-                        lineItem.InvoiceLineId = lineItem.InvoiceLineId - 1;
-                    }
-                        
-                            
-                }
-                LineItems.RemoveAt(invoiceLineId-1);
+               var lineItemToRemove = LineItems.Single(i => i.InvoiceLineId == invoiceLineId);
+                LineItems.Remove(lineItemToRemove);
 
             }
 
             return result;
 
         }
-
-        private static InvoiceLine FakeInvoiceLine(int SOMEID) => new InvoiceLine()
-        {
-            InvoiceLineId = SOMEID,
-            Cost = 10,
-            Description = "Valid",
-            Quantity = 10
-
-        };
-
+       
         /// <summary>
         /// GetTotal should return the sum of (Cost * Quantity) for each line item
         /// </summary>
@@ -70,10 +52,11 @@ namespace XeroTechnicalTest
         /// <summary>
         /// MergeInvoices appends the items from the sourceInvoice to the current invoice
         /// </summary>
-        /// <param name="sourceInvoice">Invoice to merge from</param>
-        public void MergeInvoices(Invoice sourceInvoice)
+        /// <param name="invoiceToMerge">Invoice to merge from</param>
+        public void MergeInvoices(Invoice invoiceToMerge)
         {
-            this.LineItems.AddRange(sourceInvoice.LineItems);
+            var copyOfInvoiceToMerge= invoiceToMerge.Clone();
+            LineItems.AddRange(copyOfInvoiceToMerge.LineItems);
         }
 
         /// <summary>
@@ -102,8 +85,6 @@ namespace XeroTechnicalTest
             };
         }
 
-
-
         /// <summary>
         /// Outputs string containing the following (replace [] with actual values):
         /// Invoice Number: [InvoiceNumber], InvoiceDate: [DD/MM/YYYY], LineItemCount: [Number of items in LineItems] 
@@ -116,7 +97,7 @@ namespace XeroTechnicalTest
 
         private Result ValidInput2(int invoiceLineId)
         {
-            if (!this.LineItems.Any(x => x.InvoiceLineId == invoiceLineId))
+            if (this.LineItems.All(x => x.InvoiceLineId != invoiceLineId))
             {
                 return new Result
                 {
@@ -130,7 +111,7 @@ namespace XeroTechnicalTest
                 Success = true
             };
         }
-            private Result ValidInput(InvoiceLine proposedInvoiceLine)
+        private Result ValidInput(InvoiceLine proposedInvoiceLine)
         {
             if (proposedInvoiceLine == null)
             {
@@ -173,12 +154,12 @@ namespace XeroTechnicalTest
                 };
             }
 
-            else if (this.LineItems.Count+1 != proposedInvoiceLine.InvoiceLineId)
+            else if (this.LineItems.Any(i => i.InvoiceLineId== proposedInvoiceLine.InvoiceLineId))
             {
                 return new Result
                 {
                     Success = false,
-                    Message = $"InvoiceLineId must be ${this.LineItems.Count + 1} "
+                    Message = $"InvoiceLineId must be unique."
                 };
             }
 
@@ -186,6 +167,19 @@ namespace XeroTechnicalTest
             {
                 Success = true
             };
+        }
+        
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 17;
+                // Suitable nullity checks etc, of course :)
+                hash = hash * 23 + this.InvoiceDate.GetHashCode();
+                hash = hash * 23 + this.InvoiceNumber.GetHashCode();
+                this.LineItems.ForEach(x =>   hash = hash * 23 + x.GetHashCode() );
+                return hash;
+            }
         }
 
     }
